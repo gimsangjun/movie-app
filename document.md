@@ -54,4 +54,72 @@ function App() {
 * virtual DOM(virutal document object model)이라는게 있다.(그래서 브라우저에서 소스코드를 보면 html파일은 비어있다.) 이게바로 react의 일이다. 빠른이유이고, virtual이기때문에 존재하지않아서 
 * import구문의 의미에 대해 더 알아봐야할듯.
 
-### package.json에 대해서도 알아봐야할듯 하다. 
+
+### component 
+```js
+//index.js
+import React from 'react'; // 이것을 쓰지않으면 jsx가 있는 component를 사용하는것을 이해하지 못한다. 
+import ReactDOM from 'react-dom';
+import App from './App'; 
+
+ReactDOM.render(<App />, document.getElementById('potato')); //한개의 component만 render가 가능하다. 
+
+
+//App.js
+import React from 'react';
+import Potato from "./potato" // 다른 component추가해주기 
+
+function App() { //맨앞글자는 대문자로 써주어야한다.
+  return (
+    <div>
+       <h1>Hello Sangjun!</h1>
+       <Potato />
+    </div>
+  );
+}
+
+export default App; //export를 해줘야 import를 할수 있다. 
+
+//Potato. js
+//Potato라는 나만의 component를 만들고싶다.
+import React from 'react'; // 이것을 쓰지않으면 jsx가 있는 component를 사용하는것을 이해하지 못한다. 
+
+function Potato() {//맨앞글자는 대문자로 써주어야한다.
+  return ( <h3>I love potato</h3>)
+
+}
+
+export default Potato;
+
+```
+
+* <App /> 이 부분은 component라고 부른다. 그리고 react는 component와 함계 동작한다. 모든것이 component이다.
+* component는 function이다 HTML을 반환하는 function이다. function은 appilication을 가지고 있다. 
+* react의 component라고 쓸려면 <App /> 이형식을 따라줘야되는데, 이러한 형식을 [JSX](https://developerntraveler.tistory.com/54)(시간날떄마다 이러한 것을 많이봐야 할듯)라고 한다. javascript안의 html,component를 만들고 어떻게 사용하는지에 대한 것 (react에서만쓰이는 개념, 다른데에서는 쓰이지 않음.)
+* JSX는 HTML + javaScript이다.
+* react application이 하나의 component만을 rendering하기때문에 여러개의 component를 할려면 위에처럼 <App /> component에 다른 component를 추가해줘야 한다. 
+
+<br></br>
+
+### component2 component에 정보보내기
+```js
+import React from 'react';
+
+function Food(props){
+  return <h1>I like Potato</h1>
+}
+
+function App() {
+  return (
+    <div>
+       <h1>Hello Sangjun!</h1>
+       <Food fav="kimchi" />
+    </div>
+  );
+}
+```
+* (component에 정보보내기)food 라는 component에 fav라는 이름의 property(===  prop,props)를 kimchi라는 value로 준것이다. 
+* prop들이 많이 만들수 있기 때문에, Food라는 component에는 argument로 props라는 복수형을 취해 준 것이다. 이러한 것을 react magic이라고 한다. 
+* prpos.fav == {fav} 같은 뜻이다(Food component에 argument로 넣을때). ES6에서 추가된 문법이다(자바스크립트 문법).
+
+### package.json에 대해서도 알아봐야할듯 하다.  
