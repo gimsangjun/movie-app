@@ -49,10 +49,7 @@ function App() {
 }
 ```
 
-- 너의 모든 react application을 div사이에 넣어 !
-- react는 소스코드에 처음부터 HTML을 넣지않고, HTML에서 HTML을 추가하거나 제거하는 법을 알고있다.
-- virtual DOM(virutal document object model)이라는게 있다.(그래서 브라우저에서 소스코드를 보면 html파일은 비어있다.) 이게바로 react의 일이다. 빠른이유이고, virtual이기때문에 존재하지않아서
-- import구문의 의미에 대해 더 알아봐야할듯.
+- [Virtual DOM](https://velopert.com/3236) 브라우저가 어떻게 작동하는 지에 대해 설명하고, Virtual DOM이 정확히 무슨역할을 하는지 설명해줌. 나중에 시간나면 읽어봐야할듯.
 
 ### component
 
@@ -94,7 +91,7 @@ export default Potato;
 ```
 
 - <App /> 이 부분은 [component](https://gocoder.tistory.com/2271)
-- component는 function이다 HTML을 반환하는 function이다.
+- [component](https://velog.io/@jgam/%EB%A6%AC%EC%95%A1%ED%8A%B8%EC%9D%98-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EB%9E%80)는 function이다 HTML을 반환하는 function이다.
 - react의 component라고 쓸려면 <App /> 이형식을 따라줘야되는데, 이러한 형식을 [JSX](https://developerntraveler.tistory.com/54)(시간날떄마다 이러한 것을 많이봐야 할듯)라고 한다. javascript안의 html,component를 만들고 어떻게 사용하는지에 대한 것 (react에서만쓰이는 개념, 다른데에서는 쓰이지 않음.)
 - JSX는 HTML + javaScript이다.
 - react application이 하나의 component만을 rendering하기때문에 여러개의 component를 할려면 위에처럼 <App /> component에 다른 component를 추가해줘야 한다.
@@ -126,11 +123,12 @@ function App() {
 
 ### 렌더링이란
 
-- [JSX](https://velog.io/@edie_ko/React-JSX%EB%9E%80-%EB%A0%8C%EB%8D%94%EB%A7%81-Rendering%EC%9D%B4%EB%9E%80)란 HTML 문법을 JavaScript 코드 내부에 쓴것! JavaSciript Extension 즉 자바스크립트의 확장이다. , 몇가지 규칙을 따라줘야함
+- [JSX,rendering](https://velog.io/@edie_ko/React-JSX%EB%9E%80-%EB%A0%8C%EB%8D%94%EB%A7%81-Rendering%EC%9D%B4%EB%9E%80)란 HTML 문법을 JavaScript 코드 내부에 쓴것! JavaSciript Extension 즉 자바스크립트의 확장이다. , 몇가지 규칙을 따라줘야함
+- 렌더링이란(링크는 위에 있고), html 요소(element), 또는 React 요소 등의 코드가 눈으로 볼 수 있도록 그려지는 것을 렌더링(rendering) 이라고 말합니다.
 
 ### list.map(실행 될 함수)
 
-- map은 function을 취해서 그 function을 각 array의 각 item에 적용한다.
+- [map,list에 key값을 넣어주는이유](https://velog.io/@hurima90/React%EC%8A%A4%ED%84%B0%EB%94%94%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EB%B0%B0%EC%97%B4%EC%9D%98-map-%ED%95%A8%EC%88%98)은 function을 취해서 그 function을 각 array의 각 item에 적용한다.
 
 ```js
 function Food({ name, picture }) {
@@ -151,7 +149,7 @@ function Food({ name, picture }) {
 
 - 그리고 return을 해주면 array로 리턴해준다.
 
-### object마다 유니크한 키를 가지고있어야한다.
+### object마다 유니크한 Key를 가지고있어야한다.
 
 ```js
 const foodILike = [
@@ -174,7 +172,7 @@ function App() {
 }
 ```
 
-- 원래는 필요가 없는데 react가 똑똑하지 못해서 저렇게 id값을 넣어줘야한다. Food라는 함수의 인자로 넣을때는 넣지는 않는다.
+- [Key](https://velog.io/@hurima90/React%EC%8A%A4%ED%84%B0%EB%94%94%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EB%B0%B0%EC%97%B4%EC%9D%98-map-%ED%95%A8%EC%88%98) 어떤 원소가 변경되었는지 빠르게 감지하기위해 key값을 넣는다.
 
 ### npm i prop-types
 
@@ -183,4 +181,79 @@ function App() {
 - APP.js파일에 import ProTypes from "prop-types"; 도 해줘야함.
 - 검색 키워드 react [proptypes](https://ko.reactjs.org/docs/typechecking-with-proptypes.html)
 
-JSX란 렌더링이란 컴포넌트란 package json이란 한번 정리해야할듯 너무 글이 많음.
+컴포넌트란 package json이란 한번 정리해야할듯 너무 글이 많음.
+
+### function component, class component => state
+
+- react는 자동적으로 너의 class component의 render method를 실행한다.
+- function component는 return이 존재해야하지만, class component는 아니다.
+
+```js
+class App extends React.Component {
+  state = {
+    count: 0,
+  };
+  add = () => {
+    console.log("add");
+  };
+  minus = () => {
+    console.log("minus");
+  };
+  render() {
+    return(
+    <div>
+      <h1>The number is: {this.state.count}</h1>
+      <button onClick={this.add}>Add</button>
+      <button onClick={this.minus}>Minus</button>
+    </div>;
+    );
+  }
+}
+```
+
+- class component는 state이가 잇다. state는 object이고 바꾸고 싶은 data를 넣는것이다.
+
+### setState
+
+- class component의 state를 변경해줄떄는 setstate를 사용해주어야한다.
+- [setState](https://velog.io/@lllen/React-%EC%9D%B4%EB%B2%A4%ED%8A%B8)를 호출할 대마다 react는 새로운 state와 함께 render function을 호출한다. 다시 render한다!
+
+### react class component는 render()말고 더 많은걸 가지고있다.
+
+- component life cycle : component가 어떤 단계에 있는지에 따라 제어할수있는 메서드들이 있다. 중요한 개념이다.
+- [React.Component](https://ko.reactjs.org/docs/react-component.html) 공식 API레퍼런스, 공식 문서 등등. 이런것들을 보면서 코딩하는 습관을 가져야할듯.
+
+### fetch란
+
+- [fetch](https://ljtaek2.tistory.com/130)
+- JavaScript에서 서버로 네트워크 요청을 보내고 응답을 받을 수 있도록 해주는 매서드
+- 링크에 들어가본결과 좀더 많이 공부할 내용이 있다. 해봐야할듯.
+
+### ES6문법
+
+- [ES6문법](https://velog.io/@kimhscom/JavaScript-%EC%9E%90%EC%A3%BC-%EC%82%AC%EC%9A%A9%ED%95%98%EB%8A%94-ES6-%EB%AC%B8%EB%B2%95-%EC%A0%95%EB%A6%AC) 자바스크립트 문법 최신
+- Arrow functions(화살표 함수)
+- 삼항조건 연산자: if문의 축약형태, condition ? expr1 : expr2
+
+```js
+// arrow function
+setTimeout(() => {
+  this.setState({ isLoding: false });
+}, 6000);
+// 삼항조건 연산자
+<div>{isLoading ? "Loading..." : "We are ready"}</div>;
+```
+
+- setTimeout(func, delay) 이다. func부분에 arrow function을 넣어준것이다.
+- 삼항조건 연산자: if문의 축약형태
+
+### object destructuriong 객체구조화
+
+- [stackoverflow](https://stackoverflow.com/questions/40357836/what-does-this-render-method-do-const-images-selectedimage-this-state) 영어를 해석해보는 노력을 해봐야할듯.
+
+```js
+render() {
+    const { isLoding } = this.state;
+    return <div>{isLoding ? "Loading..." : "We are ready"}</div>;
+  };
+```
