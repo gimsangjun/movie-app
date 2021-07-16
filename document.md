@@ -11,6 +11,7 @@
 
 - 여기 내용이 잘 이해가 안가니 잘 봐야할듯.
 - node.js란? [Link](https://junspapa-itdev.tistory.com/3) 어떤 방식이 있는지 잘알아보고, 장단점에 대해 알아두면좋을듯 아직은 그냥 훑어보기만했음.
+- 또 다른 [링크](https://ko-de-dev-green.tistory.com/29)
 - npm이란? node.js로 만들어진 모듈을 관리하는 툴, node.js에 built in 되어있다. [Link](https://m.blog.naver.com/magnking/220961896609)
 - npx란? 아직은 이해가 잘 안가니, 사용하면서 익혀야할듯. [Link](https://pongsoyun.tistory.com/116)
 - 추가 링크 [node.js, nvm, npm이란 무엇인가](https://pongsoyun.tistory.com/115)
@@ -119,8 +120,6 @@ function App() {
 
 - <fav> 이렇게 쓴것은 인자가 object로 올땐데 그 인자의 fav property를 쓰겠다는 것이다.
 
-### package.json에 대해서도 알아봐야할듯 하다.
-
 ### 렌더링이란
 
 - [JSX,rendering](https://velog.io/@edie_ko/React-JSX%EB%9E%80-%EB%A0%8C%EB%8D%94%EB%A7%81-Rendering%EC%9D%B4%EB%9E%80)란 HTML 문법을 JavaScript 코드 내부에 쓴것! JavaSciript Extension 즉 자바스크립트의 확장이다. , 몇가지 규칙을 따라줘야함
@@ -180,8 +179,6 @@ function App() {
 - 잘 설치되어있는 확인할려면 package.json파일을 봐보면 된다.
 - APP.js파일에 import ProTypes from "prop-types"; 도 해줘야함.
 - 검색 키워드 react [proptypes](https://ko.reactjs.org/docs/typechecking-with-proptypes.html)
-
-컴포넌트란 package json이란 한번 정리해야할듯 너무 글이 많음.
 
 ### function component, class component => state
 
@@ -257,3 +254,40 @@ render() {
     return <div>{isLoding ? "Loading..." : "We are ready"}</div>;
   };
 ```
+
+### fetch 하는방법 axios
+
+- API 연동모듈 [axios](https://velog.io/@shin6403/React-axios%EB%9E%80-feat.-Fetch-API)
+- 많은 사람들이 fetch할때 fetch를 많이 사용하는데 axios를 사용할거다.
+
+### 동기방식 비동기 방식
+
+- 자바스크립트는 기본적으로 동기적 언어. 하지만 비동기적 으로 처리되는 일부 연산 존재.[Link](https://velog.io/@dosilv/TIL-React-setState-%EB%B9%84%EB%8F%99%EA%B8%B0-%EC%B2%98%EB%A6%AC%ED%95%98%EA%B8%B0-648sv7je)
+- 동기방식: 코드에 쓰여진 대로 실행하고 마치고 실행하고 마치고를 반복.
+- 비동기방식: 함수를 실행시켜놓고 다음함수로 넘어가는 방식.
+- [Link](https://blog.silnex.kr/ajax%EB%A5%BC-%ED%86%B5%ED%95%B4-%EB%B3%B4%EB%8A%94-%EB%8F%99%EA%B8%B0-%EB%B0%A9%EC%8B%9D%EA%B3%BC-%EB%B9%84%EB%8F%99%EA%B8%B0-%EB%B0%A9%EC%8B%9D%EC%9D%98-%EC%9D%B4%ED%95%B4/)
+
+### JSON (JavaScript Object Notation)이란
+
+- 단순히 데이터를 표시하는 표현 방법, 서버와 클라이언트 간의 교류에서 일반적으로 많이사용
+- [Link](https://velog.io/@surim014/JSON%EC%9D%B4%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80)
+
+### API YTS (불법적인 토렌트 영화를 업로드)
+
+- 매번 url이 바뀌기 때문에 니코가 자동으로 되게 json추적할수있게 해줬음.
+- [YTS](https://yts.mx/api#list_movies)
+
+### Async & await
+
+- axios로 movie list로 받아오는데 시간이 걸리기때문에 동기방식으로 처리해줄거임 그방식이 [Async & await](https://velog.io/@limes/React-Async-await)
+-
+
+```js
+getMovies = async () => {
+  const movies = await axios.get("https://yts-proxy.now.sh/list_movies.json");
+};
+```
+
+### promise에 대해 좀더 알아봐야할듯.
+
+- [Link](https://joshua1988.github.io/web-development/javascript/promise-for-beginners/)
