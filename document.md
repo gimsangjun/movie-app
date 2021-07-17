@@ -35,6 +35,7 @@ npx create-react-app movie-app // set-up환경 조성
 
 - js파일을 수정하니까 바로바로 리프레시되면서 반영이 된다.
 - react가 무엇이냐면, react는 당신이 거기에 쓰는 모든 요소를 생성한다는 뜻(html파일이 비어있어도), 자바스크립트와 함께 만들어서 html에 밀어넣는다는 뜻.
+- 그래서 index.html 파일에서 div태그 id값이 root라서 document.getElementById("root")); 해준거임.
 
 ```js
 //index.js
@@ -141,12 +142,13 @@ function Food({ name, picture }) {
 
 {
   foodILike.map((dish) => (
-    <Food name={dish.name} picture={dish.image} /> // <> 으로 해줘야 js로 인식한다는 것이다. 안해주면 그냥 text로 인식한다.s
+    <Food name={dish.name} picture={dish.image} /> // <> 으로 해줘야 js로 인식한다는 것이다. 안해주면 그냥 text로 인식한다.
   ));
 }
 ```
 
 - 그리고 return을 해주면 array로 리턴해준다.
+- map function가 제공해주는 또다른 argument가 있다. foodILike.map((dish,index))다. 그래서 map에 있는 item에 key제공해줄때 index(item number)를 할당할수 있다.
 
 ### object마다 유니크한 Key를 가지고있어야한다.
 
@@ -209,6 +211,7 @@ class App extends React.Component {
 ```
 
 - class component는 state이가 잇다. state는 object이고 바꾸고 싶은 data를 넣는것이다.
+- 즉 state를 사용하고싶을떄는 class component를 사용하는것이고, 아닐떄는 function component를 사용하는것이다.
 
 ### setState
 
@@ -239,10 +242,38 @@ setTimeout(() => {
 }, 6000);
 // 삼항조건 연산자
 <div>{isLoading ? "Loading..." : "We are ready"}</div>;
+
+render(){
+  const { isLoding, movies } = this.state; // this.state.movies.map()이렇게 쓰는것을 movies.map() 이런식으로 줄여쓸수있다.
+}
 ```
 
 - setTimeout(func, delay) 이다. func부분에 arrow function을 넣어준것이다.
 - 삼항조건 연산자: if문의 축약형태
+
+```js
+getMovies = async () => {
+  ////
+  const {
+    data: {
+      data: { movies }, //반점필요없는데 자꾸 저장하면 생김.
+    },
+    ////
+  } = await axios.get(
+    "https://yts-proxy.now.sh/list_movies.json?sort_by=rating"
+  );
+  this.setState({ movies: movies, isLoding: false });
+};
+
+//원래는 이거였는데.
+const movies = await axios.get(
+  "https://yts-proxy.now.sh/list_movies.json?sort_by=rating"
+);
+//저런식으로 줄여쓰면서 자동으로 movies가 변수가되면서 된듯.
+```
+
+- console.log(movies)를 하면 내가 요청한 객체의 data data movies안에 내가 원하는 데이터가 있다.
+- movies.data.data.movies 를 줄인것인데 잘 이해가 가지 않는다. ES6문법에서는 할수있다고는 하는데.
 
 ### object destructuriong 객체구조화
 
@@ -272,6 +303,21 @@ render() {
 - 단순히 데이터를 표시하는 표현 방법, 서버와 클라이언트 간의 교류에서 일반적으로 많이사용
 - [Link](https://velog.io/@surim014/JSON%EC%9D%B4%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80)
 
+```js
+getMovies = async () => {
+  const {
+    data: {
+      data: { movies },
+    },
+  } = await axios.get(
+    "https://yts-proxy.now.sh/list_movies.json?sort_by=rating"
+  );
+  console.log(movies);
+};
+```
+
+- json뒤에 ?sort_by=rating 을 해줌으로써 조건? 을 걸수있다. API 문서를 보면된다.
+
 ### API YTS (불법적인 토렌트 영화를 업로드)
 
 - 매번 url이 바뀌기 때문에 니코가 자동으로 되게 json추적할수있게 해줬음.
@@ -291,3 +337,20 @@ getMovies = async () => {
 ### promise에 대해 좀더 알아봐야할듯.
 
 - [Link](https://joshua1988.github.io/web-development/javascript/promise-for-beginners/)
+
+### 태그에 관하여
+
+- App.js[<section/>](https://m.blog.naver.com/skydoor2014/221147725417) : 하나의 그룹 혹은 묶음으로 다루어주는 역할.
+- <img src={poster} alt={title} title={title}/> : title는 마우스를 위에올렸을때 어떤 문장이 나타나는지,alt는 경로에 이미지가없을 때 나타내는거임 [Link](https://www.codingfactory.net/11004)
+
+### react component꾸미기
+
+- react에는 많은 옵션이 있는데 style component를 사용할거임. 무료강의 있음 보셈.
+- Styled Components의 경우 보니까 리액트 멤버십 강의에 포함된거 같네요. 대신 유튜브에 이전의 무료 강의들 올라와있어요.
+  [Styled Components 강의 플레이리스트](https://www.youtube.com/watch?v=MqGxMOhPqeI&list=PL7jH19IHhOLNUIOJcGj6egl-dNB-QXjEm)
+
+### 이 디자인을 카피할거다!
+
+- [dribbble.com](https://dribbble.com/shots/2442798-Movie-Application/attachments/475341)
+- 여기 사이트에 뭔가많은 디자인들이 있다 무엇을하는 사이트일까? 디자인 사이트
+- [style Timelapse](https://nomadcoders.co/react-fundamentals/lectures/1560) 이 강의와 맞지않아서 그냥 타임랩스로 보여준다. 다른개발자들도 어떤식으로 하는지 다른 타임랩스도 보면 좋을듯.
